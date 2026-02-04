@@ -1,11 +1,11 @@
-import sgMail from '@sendgrid/mail';
+import { Resend } from 'resend';
 
-// Initialize SendGrid
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// Initialize Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 console.log('Email Service Configured:');
-console.log(`  Service: SendGrid`);
-console.log(`  API Key configured: ${!!process.env.SENDGRID_API_KEY}`);
+console.log(`  Service: Resend`);
+console.log(`  API Key configured: ${!!process.env.RESEND_API_KEY}`);
 
 // Send email to admin when user books appointment
 export const sendAdminBookingNotification = async (bookingDetails) => {
@@ -22,15 +22,13 @@ export const sendAdminBookingNotification = async (bookingDetails) => {
     <p style="margin-top: 20px; color: #666;">Please review and approve/reject this booking in your admin dashboard.</p>
   `;
 
-  const msg = {
-    to: process.env.ADMIN_EMAIL,
-    from: process.env.SENDGRID_FROM_EMAIL || 'noreply@careerlounge.com',
-    subject: `New Appointment Booking - ${service}`,
-    html: emailContent,
-  };
-
   try {
-    await sgMail.send(msg);
+    await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL || 'Career Lounge <onboarding@resend.dev>',
+      to: process.env.ADMIN_EMAIL,
+      subject: `New Appointment Booking - ${service}`,
+      html: emailContent,
+    });
     console.log('Admin notification email sent successfully');
     return true;
   } catch (error) {
@@ -55,15 +53,13 @@ export const sendUserApprovalConfirmation = async (bookingDetails) => {
     <p style="margin-top: 30px; color: #666;">Best regards,<br/>Career Lounge Team</p>
   `;
 
-  const msg = {
-    to: email,
-    from: process.env.SENDGRID_FROM_EMAIL || 'noreply@careerlounge.com',
-    subject: 'Your Appointment is Confirmed - Career Lounge',
-    html: emailContent,
-  };
-
   try {
-    await sgMail.send(msg);
+    await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL || 'Career Lounge <onboarding@resend.dev>',
+      to: email,
+      subject: 'Your Appointment is Confirmed - Career Lounge',
+      html: emailContent,
+    });
     console.log('User approval confirmation email sent successfully');
     return true;
   } catch (error) {
@@ -84,15 +80,13 @@ export const sendUserRejectionNotification = async (bookingDetails) => {
     <p style="margin-top: 30px; color: #666;">Best regards,<br/>Career Lounge Team</p>
   `;
 
-  const msg = {
-    to: email,
-    from: process.env.SENDGRID_FROM_EMAIL || 'noreply@careerlounge.com',
-    subject: 'Appointment Status Update - Career Lounge',
-    html: emailContent,
-  };
-
   try {
-    await sgMail.send(msg);
+    await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL || 'Career Lounge <onboarding@resend.dev>',
+      to: email,
+      subject: 'Appointment Status Update - Career Lounge',
+      html: emailContent,
+    });
     console.log('User rejection notification email sent successfully');
     return true;
   } catch (error) {
@@ -115,15 +109,13 @@ export const sendPasswordResetEmail = async (userEmail, userName, resetUrl) => {
     <p style="margin-top: 30px; color: #666;">Best regards,<br/>Career Lounge Team</p>
   `;
 
-  const msg = {
-    to: userEmail,
-    from: process.env.SENDGRID_FROM_EMAIL || 'noreply@careerlounge.com',
-    subject: 'Password Reset Request - Career Lounge',
-    html: emailContent,
-  };
-
   try {
-    await sgMail.send(msg);
+    await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL || 'Career Lounge <onboarding@resend.dev>',
+      to: userEmail,
+      subject: 'Password Reset Request - Career Lounge',
+      html: emailContent,
+    });
     console.log('Password reset email sent successfully');
     return true;
   } catch (error) {
@@ -145,15 +137,13 @@ export const sendPasswordResetConfirmation = async (userEmail, userName) => {
     <p style="margin-top: 30px; color: #666;">Best regards,<br/>Career Lounge Team</p>
   `;
 
-  const msg = {
-    to: userEmail,
-    from: process.env.SENDGRID_FROM_EMAIL || 'noreply@careerlounge.com',
-    subject: 'Password Reset Confirmation - Career Lounge',
-    html: emailContent,
-  };
-
   try {
-    await sgMail.send(msg);
+    await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL || 'Career Lounge <onboarding@resend.dev>',
+      to: userEmail,
+      subject: 'Password Reset Confirmation - Career Lounge',
+      html: emailContent,
+    });
     console.log('Password reset confirmation email sent successfully');
     return true;
   } catch (error) {
