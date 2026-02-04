@@ -24,15 +24,15 @@ export const createBooking = async (req, res) => {
       notes,
     });
 
-    // Send email notification to admin
-    await sendAdminBookingNotification({
+    // Send email notification to admin (fire and forget - don't wait)
+    sendAdminBookingNotification({
       name,
       email,
       phone,
       service,
       date,
       timeSlot,
-    });
+    }).catch(err => console.error('Failed to send email:', err));
 
     res.status(201).json({
       message: 'Booking created successfully',
