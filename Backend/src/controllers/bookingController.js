@@ -80,20 +80,20 @@ export const updateBookingStatus = async (req, res) => {
       return res.status(404).json({ message: 'Booking not found' });
     }
 
-    // Send email to user based on status update
+    // Send email to user based on status update (fire and forget)
     if (status === 'confirmed') {
-      await sendUserApprovalConfirmation({
+      sendUserApprovalConfirmation({
         name: booking.name,
         email: booking.email,
         date: booking.date,
         timeSlot: booking.timeSlot,
         service: booking.service,
-      });
+      }).catch(err => console.error('Failed to send approval email:', err));
     } else if (status === 'rejected') {
-      await sendUserRejectionNotification({
+      sendUserRejectionNotification({
         name: booking.name,
         email: booking.email,
-      });
+      }).catch(err => console.error('Failed to send rejection email:', err));
     }
 
     res.json({
