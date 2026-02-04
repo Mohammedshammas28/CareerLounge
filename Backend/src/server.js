@@ -23,6 +23,9 @@ console.log(`  Password configured: ${!!process.env.EMAIL_PASSWORD}`);
 
 const app = express();
 
+// Trust proxy (important for Railway/Vercel behind reverse proxy)
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet());
 app.use(cors({ origin: process.env.CORS_ORIGIN }));
