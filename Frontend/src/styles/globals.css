@@ -1,0 +1,269 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+
+/* Root Variables */
+:root {
+  --navy-900: #0f1b2e;
+  --navy-950: #0a1220;
+  --charcoal-900: #0f0f0f;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --gold-400: #d4af37;
+  --ivory: #f5f1e8;
+}
+
+* {
+  @apply transition-colors duration-300;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  @apply bg-navy-950 text-slate-300;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-serif font-semibold tracking-tight text-ivory;
+}
+
+h1 {
+  @apply text-5xl md:text-7xl font-bold;
+  font-family: 'Playfair Display', serif;
+}
+
+h2 {
+  @apply text-4xl md:text-5xl font-bold;
+  font-family: 'Playfair Display', serif;
+}
+
+h3 {
+  @apply text-2xl md:text-3xl font-semibold;
+  font-family: 'Playfair Display', serif;
+}
+
+h4 {
+  @apply text-xl md:text-2xl font-semibold;
+}
+
+p {
+  @apply text-slate-400 leading-relaxed;
+}
+
+a {
+  @apply text-gold-400 hover:text-gold-300 transition-colors duration-300;
+}
+
+/* Premium Button Styles */
+.btn {
+  @apply px-6 py-3 rounded-md font-medium transition-all duration-300 flex items-center justify-center gap-2 uppercase tracking-wide text-sm;
+}
+
+.btn-primary {
+  @apply bg-gold-400 text-navy-950 hover:bg-gold-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 font-bold;
+}
+
+.btn-secondary {
+  @apply bg-navy-700 text-ivory border-2 border-navy-700 hover:bg-navy-800 shadow-lg;
+}
+
+.btn-outline {
+  @apply border-2 border-gold-400 text-gold-400 hover:bg-gold-400 hover:text-navy-950 transition-all font-bold;
+}
+
+.btn-ghost {
+  @apply text-slate-400 hover:text-gold-400 hover:bg-slate-900/50 transition-all;
+}
+
+.btn-sm {
+  @apply px-4 py-2 text-xs;
+}
+
+.btn-lg {
+  @apply px-8 py-4 text-base;
+}
+
+/* Card Styles */
+.card {
+  @apply bg-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-md p-6 transition-all duration-300 hover:border-slate-600;
+}
+
+.card-elevated {
+  @apply bg-slate-900/70 border border-slate-700 rounded-md p-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300;
+}
+
+.card-premium {
+  @apply bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-md p-8 shadow-xl;
+}
+
+/* Section Wrapper */
+.section {
+  @apply py-20 px-4 sm:px-6 lg:px-8;
+}
+
+.section-dark {
+  @apply bg-navy-950;
+}
+
+.section-alt {
+  @apply bg-slate-900/30;
+}
+
+/* Badge Styles */
+.badge {
+  @apply inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide;
+}
+
+.badge-primary {
+  @apply bg-gold-400/20 text-gold-300;
+}
+
+.badge-secondary {
+  @apply bg-slate-700/50 text-slate-300;
+}
+
+.badge-accent {
+  @apply bg-navy-700/50 text-slate-100;
+}
+
+/* Form Inputs */
+input,
+textarea,
+select {
+  @apply bg-slate-900 border border-slate-700 rounded-md px-4 py-3 text-slate-100 placeholder-slate-500 transition-all duration-300 focus:outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-400/20;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  @apply bg-slate-800;
+}
+
+textarea {
+  @apply resize-none;
+}
+
+label {
+  @apply text-slate-300 font-medium text-sm;
+}
+
+/* Divider */
+.divider {
+  @apply h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent my-8;
+}
+
+/* Accent Line */
+.accent-line {
+  @apply h-1 w-16 bg-gold-400 rounded-full;
+}
+
+.accent-line-sm {
+  @apply h-0.5 w-8 bg-gold-400;
+}
+
+/* Grid Layouts */
+.grid-auto {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+/* Utility Classes */
+.container-max {
+  @apply max-w-7xl mx-auto;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.text-muted {
+  @apply text-slate-500;
+}
+
+.text-accent {
+  @apply text-gold-400;
+}
+
+.text-light {
+  @apply text-ivory;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-navy-950;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-700 rounded hover:bg-slate-600;
+}
+
+/* Glass Effect */
+.glass {
+  @apply bg-slate-800/30 backdrop-blur-md border border-slate-700/50 rounded-md;
+}
+
+/* Animations */
+@keyframes shimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes subtle-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.08); }
+  50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.12); }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.animate-subtle-glow {
+  animation: subtle-glow 3s ease-in-out infinite;
+}
+
+/* Skeleton Loader */
+.skeleton {
+  @apply bg-gradient-to-r from-slate-700 via-slate-600 to-slate-700 animate-shimmer rounded;
+}
+
+/* Premium Section Titles */
+.section-title {
+  @apply text-4xl md:text-5xl font-bold text-ivory mb-4;
+  font-family: 'Playfair Display', serif;
+}
+
+.section-subtitle {
+  @apply text-lg text-slate-400 mb-12 max-w-2xl;
+}
+
+/* Stats Counter */
+.stat-number {
+  @apply text-4xl md:text-5xl font-bold text-gold-400;
+  font-family: 'Playfair Display', serif;
+}
+
+.stat-label {
+  @apply text-slate-400 text-sm uppercase tracking-widest;
+}
+
+/* Scroll bar styling */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-900 dark:bg-gray-950;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-indigo-500 dark:bg-indigo-600 rounded-full hover:bg-indigo-400;
+}
