@@ -1,20 +1,11 @@
-import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
 
-// Create transporter lazily to ensure environment variables are loaded
-let transporter = null;
+// Initialize SendGrid
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const getTransporter = () => {
-  if (!transporter) {
-    transporter = nodemailer.createTransport({
-      service: process.env.EMAIL_SERVICE || 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
-  }
-  return transporter;
-};
+console.log('Email Service Configured:');
+console.log(`  Service: SendGrid`);
+console.log(`  API Key configured: ${!!process.env.SENDGRID_API_KEY}`);
 
 // Send email to admin when user books appointment
 export const sendAdminBookingNotification = async (bookingDetails) => {
@@ -31,15 +22,15 @@ export const sendAdminBookingNotification = async (bookingDetails) => {
     <p style="margin-top: 20px; color: #666;">Please review and approve/reject this booking in your admin dashboard.</p>
   `;
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
+  const msg = {
     to: process.env.ADMIN_EMAIL,
+    from: process.env.SENDGRID_FROM_EMAIL || 'noreply@careerlounge.com',
     subject: `New Appointment Booking - ${service}`,
     html: emailContent,
   };
 
   try {
-    await getTransporter().sendMail(mailOptions);
+    await sgMail.send(msg);
     console.log('Admin notification email sent successfully');
     return true;
   } catch (error) {
@@ -64,15 +55,15 @@ export const sendUserApprovalConfirmation = async (bookingDetails) => {
     <p style="margin-top: 30px; color: #666;">Best regards,<br/>Career Lounge Team</p>
   `;
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
+  const msg = {
     to: email,
+    from: process.env.SENDGRID_FROM_EMAIL || 'noreply@careerlounge.com',
     subject: 'Your Appointment is Confirmed - Career Lounge',
     html: emailContent,
   };
 
   try {
-    await getTransporter().sendMail(mailOptions);
+    await sgMail.send(msg);
     console.log('User approval confirmation email sent successfully');
     return true;
   } catch (error) {
@@ -93,15 +84,15 @@ export const sendUserRejectionNotification = async (bookingDetails) => {
     <p style="margin-top: 30px; color: #666;">Best regards,<br/>Career Lounge Team</p>
   `;
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
+  const msg = {
     to: email,
+    from: process.env.SENDGRID_FROM_EMAIL || 'noreply@careerlounge.com',
     subject: 'Appointment Status Update - Career Lounge',
     html: emailContent,
   };
 
   try {
-    await getTransporter().sendMail(mailOptions);
+    await sgMail.send(msg);
     console.log('User rejection notification email sent successfully');
     return true;
   } catch (error) {
@@ -124,15 +115,15 @@ export const sendPasswordResetEmail = async (userEmail, userName, resetUrl) => {
     <p style="margin-top: 30px; color: #666;">Best regards,<br/>Career Lounge Team</p>
   `;
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
+  const msg = {
     to: userEmail,
+    from: process.env.SENDGRID_FROM_EMAIL || 'noreply@careerlounge.com',
     subject: 'Password Reset Request - Career Lounge',
     html: emailContent,
   };
 
   try {
-    await getTransporter().sendMail(mailOptions);
+    await sgMail.send(msg);
     console.log('Password reset email sent successfully');
     return true;
   } catch (error) {
@@ -154,15 +145,15 @@ export const sendPasswordResetConfirmation = async (userEmail, userName) => {
     <p style="margin-top: 30px; color: #666;">Best regards,<br/>Career Lounge Team</p>
   `;
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
+  const msg = {
     to: userEmail,
+    from: process.env.SENDGRID_FROM_EMAIL || 'noreply@careerlounge.com',
     subject: 'Password Reset Confirmation - Career Lounge',
     html: emailContent,
   };
 
   try {
-    await getTransporter().sendMail(mailOptions);
+    await sgMail.send(msg);
     console.log('Password reset confirmation email sent successfully');
     return true;
   } catch (error) {
